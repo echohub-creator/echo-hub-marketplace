@@ -236,13 +236,25 @@ function escapeHtml(text) {
 // INITIALIZATION
 // ============================================
 
-document.addEventListener('DOMContentLoaded', async () => {
-    console.log('Echo Hub Marketplace initializing...');
-    console.log('Supabase URL:', SUPABASE_URL);
-    await fetchAndDisplayListings();
-    setupRealtimeListings();
-    console.log('Echo Hub Marketplace ready!');
-});
+async function initializeMarketplace() {
+        console.log('Echo Hub Marketplace initializing...');
+        console.log('Supabase URL:', SUPABASE_URL);
+
+        // Load initial listings
+        await fetchAndDisplayListings();
+
+        // Set up real-time updates (optional - comment out if not needed)
+        setupRealtimeListings();
+
+        console.log('Echo Hub Marketplace ready!');
+}
+
+// Run initialization immediately if DOM is ready, otherwise wait for DOMContentLoaded
+if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeMarketplace);
+} else {
+        initializeMarketplace();
+}
 
 // ============================================
 // REAL-TIME UPDATES (Supabase Realtime)
